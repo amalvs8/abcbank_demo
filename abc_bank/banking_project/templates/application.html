@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% if user.is_authenticated %}
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<div class="card" style="width: 24rem; margin-top:50px; margin-left:50px;">
+  <div class="card-body">
+    <h4><b>Please fill the Application</b></h4>
+  <form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+    {% for field in form %}
+      {{field.label}}{{field}}
+    <br>
+    {% endfor %}
+    {% for msg in messages %}
+      <div class="alert alert-warning" role="alert">
+        <small class="form-text text-muted">{{msg}}</small>
+        <small class="form-text text-muted">Return <a href="{% url 'bankapp:home' %}">Home</a></small>
+      </div>
+    {% endfor %}
+    <button class="btn btn-outline-primary my-2 my-sm-0" type="Submit">Submit</button><br>
+    <script>
+     $(document).ready(function() {
+        $('#id_district').change(function() {
+            var districtId = $(this).val();
+            $.ajax({
+                url: '/getBranch/',
+                data: {
+                    'district_id': districtId
+                },
+                success: function(data) {
+                    $('#id_branch').empty();
+                    $('#id_branch').append($('<option>').text('Select Branch').attr('value', ''));
+                    $.each(data, function(index, option) {
+                        $('#id_branch').append($('<option>').text(option.branch).attr('value', option.id));
+                    });
+                }
+            });
+        });
+    });
+</script>
+</form>
+  </div>
+</div>
+{% else %}
+    <meta http-equiv="refresh" content="0; {% url 'credentials:login' %} " />
+{% endif %}
+{% endblock %}

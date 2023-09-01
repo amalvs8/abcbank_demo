@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery.slim.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <meta charset="UTF-8">
+    <title>ABC Bank</title>
+</head>
+<style>
+      .backgroundImage {
+        border: none;
+        height: 100%;
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        object-fit:cover;
+      }
+      </style>
+<body style="background-color:#e8e8e8; font-family:calibri;">
+<img class="backgroundImage" src="{% static 'images/721307372-0.jpeg' %}">
+{% include 'navbar.html' %}
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          {% block body %}
+          {% endblock %}
+      </div>
+  </div>
+</div>
+</body>
+</html>
+

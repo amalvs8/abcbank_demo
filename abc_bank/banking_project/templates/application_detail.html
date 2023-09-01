@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  {% if user.is_authenticated %}
+      <div class="card" style="width: 24rem; margin-top:50px; margin-left:50px;">
+        <div class="card-body">
+          <h4><b>Application Summary</b></h4>
+          <div class="form-group">
+            <label>Name: {{application2.first_name}}. {{application2.last_name}}</label>
+          </div>
+          <div class="form-group">
+            <label>Date of Birth: {{application2.date_of_birth}}</label>
+          </div>
+          <div class="form-group">
+            <label>Gender: {{application2.gender}}</label><br>
+          </div>
+          <div class="form-group">
+            <label>Phone No.: {{application2.phone_no}}</label>
+          </div>
+          <div class="form-group">
+            <label>Email: {{application2.email_address}}</label>
+          </div>
+          <div class="form-group">
+            <label>Address: {{application2.address}}</label>
+          </div>
+          <div class="form-group">
+            <label>District: {{application2.district}}</label>
+          </div>
+          <div class="form-group">
+            <label>Branch: {{application2.branch}}</label>
+          </div>
+          <div class="form-group">
+            <label>Account Type: {{application2.account_type}}</label>
+          </div>
+          <div class="form-group">
+            {% if application2.material_provided == "['debit_card', 'credit_card', 'cheque_book']" %}
+            <label>Material Provided: Debit Card,  Credit Card, Cheque Book</label><br>
+            {% endif %}
+            {% if application2.material_provided == "['debit_card', 'credit_card']" %}
+            <label>Material Provided: Debit Card,  Credit Card</label><br>
+            {% endif %}
+            {% if application2.material_provided == "['debit_card', 'cheque_book']" %}
+            <label>Material Provided: Debit Card,  Cheque Book</label><br>
+            {% endif %}
+            {% if application2.material_provided == "['credit_card', 'cheque_book']" %}
+            <label>Material Provided: Credit Card,  Cheque Book</label><br>
+            {% endif %}
+            {% if application2.material_provided == "['debit_card']" %}
+            <label>Material Provided: Debit Card</label><br>
+            {% endif %}
+            {% if application2.material_provided == "['credit_card']" %}
+            <label>Material Provided: Credit Card</label><br>
+            {% endif %}
+            {% if application2.material_provided == "['cheque_book']" %}
+            <label>Material Provided: Cheque Book</label><br>
+            {% endif %}
+          </div>
+          <small class="form-text text-muted"><a class="nav-link" href="{% url 'bankapp:home' %}">Return Home</a></small>
+        </div>
+      </div>
+  {% else %}
+      <meta http-equiv="refresh" content="0; {% url 'credentials:login' %} " />
+  {% endif %}
+{% endblock %}

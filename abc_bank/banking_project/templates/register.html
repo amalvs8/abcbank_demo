@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% if user.is_authenticated %}
+    <meta http-equiv="refresh" content="0; {% url 'bankapp:home' %} " />
+{% else %}
+<div class="card" style="width: 24rem; margin-top:60px; margin-left:60px;">
+  <div class="card-body">
+    <form action="register" method="POST">
+      {% csrf_token %}
+      <h4><b>Please Register here</b></h4>
+      <div class="form-group">
+        <label>First Name</label>
+        <input type="text" class="form-control" name="first_name" placeholder="Enter first name">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" class="form-control" name="last_name" placeholder="Enter last name">
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" name="username" placeholder="Enter username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" class="form-control" name="c_password" placeholder="Confirm password">
+      </div>
+      <div class="form-group">
+        <label class="form-check-label">Already have an Account? <a class="card-link" href="{% url 'credentials:login' %}">Log in here</a></label>
+      </div>
+    {% for msg in messages %}
+      <div class="alert alert-warning" role="alert">
+        <small id="emailHelp" class="form-text text-muted">{{msg}}</small>
+      </div>
+    {% endfor %}
+      <button class="btn btn-outline-success my-2 my-sm-0" type="Submit">Register</button><br>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

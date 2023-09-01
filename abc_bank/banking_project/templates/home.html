@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+    <div class="card" style="width: 24rem; margin-top:60px; margin-left:60px;">
+        <div class="card-body">
+                <h4><b>Welcome {{user.first_name}},</b></h4>
+            <form action="application_detail" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                <label>Enter e-mail id for application summary</label>
+                <input type="email" class="form-control" name="email_address" placeholder="Enter Email Address">
+                </div>
+                {% for msg in messages %}
+                    <div class="alert alert-warning" role="alert">
+                        <small id="emailHelp" class="form-text text-muted">{{msg}}</small>
+                    </div>
+                {% endfor %}
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="Submit">Search</button><br>
+            </form>
+            <label>Always visit Bank's site instead of clicking on the links provided in emails or third party websites</label>
+            <label>Do not respond to pop-up windows asking for your confidential information</label>
+            <label>Please fill up the application form to get further assistance for account related information.</label>
+            <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'bankapp:application' %}">Application</a>
+        </div>
+    </div>
+    {% else %}
+        <meta http-equiv="refresh" content="0; {% url 'credentials:login' %} " />
+    {% endif %}
+{% endblock %}

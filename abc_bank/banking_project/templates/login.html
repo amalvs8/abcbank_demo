@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% if user.is_authenticated %}
+    <meta http-equiv="refresh" content="0; {% url 'bankapp:home' %} " />
+{% else %}
+<div class="card" style="width: 24rem; margin-top:60px; margin-left:60px;">
+  <div class="card-body">
+    <form action="login" method="POST">
+      {% csrf_token %}
+      <h4><b>Please Log in here</b></h4>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" class="form-control" name="username" placeholder="Enter username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label class="form-check-label">New User? <a class="card-link" href="{% url 'credentials:register' %}">Register here</a></label>
+      </div>
+    {% for msg in messages %}
+      <div class="alert alert-warning" role="alert">
+        <small id="emailHelp" class="form-text text-muted">{{msg}}</small>
+      </div>
+    {% endfor %}
+      <button class="btn btn-outline-info my-2 my-sm-0" type="Submit">Log in</button><br>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
